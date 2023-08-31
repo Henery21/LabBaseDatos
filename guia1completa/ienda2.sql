@@ -1,3 +1,8 @@
+create database Tienda_electronica;
+go 
+use Tienda_electronica;
+go 
+
 -- Tabla Productos
 CREATE TABLE Productos (
   ID_Producto INT PRIMARY KEY IDENTITY(1,1),
