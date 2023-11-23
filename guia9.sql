@@ -1,15 +1,15 @@
--- Crear la vista
-CREATE VIEW VistaEmpleadosConCargo
-AS
-SELECT
+use TiendaLacteos;
+--Mostrar empleados con su respectivo cargo.
+create view VistaEmpleadosConRoles as
+select 
     E.ID_Empleado,
     E.NombresEmpleado,
     E.ApellidosEmpleado,
-    C.Nombre_Cargo AS Cargo
-FROM
+    E.DUI_Empleado,
+    C.Nombre_Cargo as Cargo
+from
     Empleados E
-JOIN
-    Cargo C ON E.ID_Cargo = C.ID_Cargo;
+join 
+    Cargo C on E.ID_Cargo = C.ID_Cargo;
 
-	-- Consultar la vista
-SELECT * FROM VistaEmpleadosConCargo;
+select*from  VistaEmpleadosConRoles;
