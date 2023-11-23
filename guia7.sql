@@ -1,30 +1,27 @@
-CREATE PROCEDURE InsertarNuevoRegistro
-    @Parametro1 INT,
-    @Parametro2 VARCHAR(50)
-AS
-BEGIN
-    SET NOCOUNT ON;
 
-    -- Lógica de inserción en la tabla deseada
-    INSERT INTO TuTabla (Columna1, Columna2)
-    VALUES (@Parametro1, @Parametro2);
+use TiendaLacteos;
 
-    -- Mensaje al finalizar la inserción
-    PRINT 'Procedimiento almacenado ejecutado correctamente.';
-END;
+CREATE TABLE ReporteIngresoProductos (
+    ID_ReporteIngreso INT PRIMARY KEY,
+    ID_Proveedor INT,
+    FechaIngreso DATE,
+    TotalIngreso DECIMAL(11, 2),
+    FOREIGN KEY (ID_Proveedor) REFERENCES Proveedores(ID_Proveedor)
+);
+create procedure InsertarProducto	
+	@FechaIngreso date,
+	@TotalIngreso decimal(11,2)  
+as
+begin
+    insert  ReporteIngresoProductos(FechaIngreso,TotalIngreso) 
+	values (@FechaIngreso,@TotalIngreso);
+end;
 
-CREATE TRIGGER DespuesDeInsertarNuevoRegistro
-ON TuTabla
-AFTER INSERT
-AS
-BEGIN
-    SET NOCOUNT ON;
-
-    -- Lógica del trigger (puedes hacer una inserción, actualización, etc.)
-    INSERT INTO OtraTabla (Columna1, Columna2)
-    SELECT Columna1, Columna2
-    FROM INSERTED;
-
-    -- Mensaje al finalizar el trigger
-    PRINT 'Trigger ejecutado después de la inserción.';
-END;
+create trigger DespuesDeInsertarProductos
+on dbo.ReporteIngresoProductos 
+after insert
+as
+begin
+    
+	print 'Se ha insertado un nuevo Producto';
+end;

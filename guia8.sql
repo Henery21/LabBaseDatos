@@ -1,10 +1,13 @@
--- Crear una secuencia
-CREATE SEQUENCE SecuenciaFacturas
-    START WITH 1
-    INCREMENT BY 1
-    MINVALUE 1
-    MAXVALUE 1000000;  -- Ajusta el valor máximo según tus necesidades
+use TiendaLacteos;
+create sequence ReporteIngresoID_Secuencia
+    start with 1
+    increment by 1
+    no cycle;
 
--- Modificar la definición de la tabla Facturas para usar la secuencia
-ALTER TABLE Facturas
-ALTER COLUMN NumeroFactura INT DEFAULT NEXT VALUE FOR SecuenciaFacturas;
+
+UPDATE ReporteIngresoProductos
+set ID_ReporteIngreso = next value for ReporteIngresoID_Secuencia;
+
+
+alter sequence ProveedoresID_Secuencia
+    restart with 1;
